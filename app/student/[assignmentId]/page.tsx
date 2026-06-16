@@ -4,7 +4,8 @@ import type { PageProps } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-export async function generateMetadata({ params, searchParams }: PageProps) {
+export async function generateMetadata({ params }: PageProps) {
+  const { assignmentId } = (await params) as { assignmentId?: string };
   return { title: 'Practice' };
 }
 
