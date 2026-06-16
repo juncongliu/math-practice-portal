@@ -1,6 +1,8 @@
 import { makeServerClient } from '@/lib/supabase';
 import type { PageProps } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: 'My Practice' };
 
 export default async function StudentDashboard({ searchParams }: PageProps) {

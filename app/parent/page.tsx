@@ -1,6 +1,8 @@
 import { makeServerClient } from '@/lib/supabase';
 import type { PageProps } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export const metadata = { title: 'Review Queue' };
 
 export default async function ParentDashboard({ searchParams }: PageProps) {

@@ -2,6 +2,8 @@ import { makeServerClient } from '@/lib/supabase';
 import ReviewForm from '@/components/ReviewForm';
 import type { PageProps } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params }: PageProps) {
   return { title: 'Review Submission' };
 }

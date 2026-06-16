@@ -2,6 +2,8 @@ import { makeServerClient } from '@/lib/supabase';
 import WorksheetPractice from '@/components/WorksheetPractice';
 import type { PageProps } from '@/types';
 
+export const dynamic = 'force-dynamic';
+
 export async function generateMetadata({ params, searchParams }: PageProps) {
   const supabase = makeServerClient();
   const { data } = await supabase
