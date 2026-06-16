@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase';
+import { makeServerClient } from '@/lib/supabase';
 import type { PageProps } from '@/types';
 
 export const metadata = { title: 'My Practice' };
@@ -10,7 +10,7 @@ export default async function StudentDashboard({ searchParams }: PageProps) {
     return <div className="p-6 text-red-600">Missing student_id</div>;
   }
 
-  const supabase = createServerClient();
+  const supabase = makeServerClient();
 
   // Fetch assignments this student has submitted
   const { data: submissions } = await supabase

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase';
+import { makeClient } from '@/lib/supabase';
 import { applyManualOverride } from '@/lib/auto_grader';
 
 // PATCH /api/grade — parent/manual override of a submission
@@ -17,7 +17,7 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: 'submission_id and reviewed_by are required' }, { status: 400 });
   }
 
-  const supabase = createClient();
+  const supabase = makeClient();
 
   // Fetch current submission
   const { data: current, error: fErr } = await supabase

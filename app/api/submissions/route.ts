@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient, type Submission } from '@/lib/supabase';
+import { makeClient, type Submission } from '@/lib/supabase';
 import { autoGrade } from '@/lib/auto_grader';
 
 // GET /api/submissions — list submissions
@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
   const assignmentId = searchParams.get('assignment_id');
   const status = searchParams.get('status');
 
-  const supabase = createClient();
+  const supabase = makeClient();
   let query = supabase
     .from('submissions')
     .select('*, assignment:assignments(id, title, problems)')
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'assignment_id, student_id, and answers are required' }, { status: 400 });
   }
 
-  const supabase = createClient();
+  const supabase = makeClient();
 
   // Fetch assignment to get problems + answer key
   const { data: assignment, error: aErr } = await supabase

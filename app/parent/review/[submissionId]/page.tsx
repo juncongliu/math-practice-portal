@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase';
+import { makeServerClient } from '@/lib/supabase';
 import ReviewForm from '@/components/ReviewForm';
 import type { PageProps } from '@/types';
 
@@ -14,7 +14,7 @@ export default async function ReviewPage({ params, searchParams }: PageProps) {
     return <div className="p-6 text-red-600">Missing parameters</div>;
   }
 
-  const supabase = createServerClient();
+  const supabase = makeServerClient();
   const { data: submission } = await supabase
     .from('submissions')
     .select('*, student:students(name), assignment:assignments(title, problems)')

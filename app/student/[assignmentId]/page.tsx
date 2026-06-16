@@ -1,9 +1,9 @@
-import { createServerClient } from '@/lib/supabase';
+import { makeServerClient } from '@/lib/supabase';
 import WorksheetPractice from '@/components/WorksheetPractice';
 import type { PageProps } from '@/types';
 
 export async function generateMetadata({ params, searchParams }: PageProps) {
-  const supabase = createServerClient();
+  const supabase = makeServerClient();
   const { data } = await supabase
     .from('assignments')
     .select('title')
@@ -20,7 +20,7 @@ export default async function WorksheetPage({ params, searchParams }: PageProps)
     return <div className="p-6 text-red-600">Missing assignment or student ID</div>;
   }
 
-  const supabase = createServerClient();
+  const supabase = makeServerClient();
   const { data: assignment } = await supabase
     .from('assignments')
     .select('*')
@@ -34,8 +34,8 @@ export default async function WorksheetPage({ params, searchParams }: PageProps)
   // Server-side submit handler
   async function handleSubmit(answers: Record<string, string>) {
     'use server';
-    const { createServerClient } = await import('@/lib/supabase');
-    const sb = createServerClient();
+    const { makeServerClient } = await import('@/lib/supabase');
+    const sb = makeServerClient();
 
     const { data: assignment } = await sb
       .from('assignments')

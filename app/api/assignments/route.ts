@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient, type Assignment } from '@/lib/supabase';
+import { makeClient, type Assignment } from '@/lib/supabase';
 
 // GET /api/assignments — list assignments (filtered by student or parent)
 export async function GET(req: NextRequest) {
@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   const studentId = searchParams.get('student_id');
   const topicId = searchParams.get('topic_id');
 
-  const supabase = createClient();
+  const supabase = makeClient();
   let query = supabase.from('assignments').select('*').order('created_at', { ascending: false });
 
   if (studentId) {
@@ -41,7 +41,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'title and problems are required' }, { status: 400 });
   }
 
-  const supabase = createClient();
+  const supabase = makeClient();
   const { data, error } = await supabase
     .from('assignments')
     .insert({ title, topic_id, problems, pdf_url, due_date })

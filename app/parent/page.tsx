@@ -1,4 +1,4 @@
-import { createServerClient } from '@/lib/supabase';
+import { makeServerClient } from '@/lib/supabase';
 import type { PageProps } from '@/types';
 
 export const metadata = { title: 'Review Queue' };
@@ -7,7 +7,7 @@ export default async function ParentDashboard({ searchParams }: PageProps) {
   const parentId = searchParams?.parent_id as string;
   if (!parentId) return <div className="p-6 text-red-600">Missing parent_id</div>;
 
-  const supabase = createServerClient();
+  const supabase = makeServerClient();
 
   // Fetch pending review submissions
   const { data: pending } = await supabase
