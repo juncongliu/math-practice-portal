@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Review Queue' };
 
 export default async function ParentDashboard({ searchParams }: PageProps) {
-  const parentId = searchParams?.parent_id as string;
+  const { parent_id: parentId } = await searchParams;
   if (!parentId) return <div className="p-6 text-red-600">Missing parent_id</div>;
 
   const supabase = makeServerClient();

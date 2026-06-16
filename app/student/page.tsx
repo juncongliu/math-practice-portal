@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'My Practice' };
 
 export default async function StudentDashboard({ searchParams }: PageProps) {
-  const studentId = searchParams?.student_id as string;
+  const { student_id: studentId } = await searchParams;
 
   if (!studentId) {
     return <div className="p-6 text-red-600">Missing student_id</div>;

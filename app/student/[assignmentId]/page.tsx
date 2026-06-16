@@ -5,18 +5,12 @@ import type { PageProps } from '@/types';
 export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({ params, searchParams }: PageProps) {
-  const supabase = makeServerClient();
-  const { data } = await supabase
-    .from('assignments')
-    .select('title')
-    .eq('id', params?.assignmentId as string)
-    .single();
-  return { title: data?.title ?? 'Practice' };
+  return { title: 'Practice' };
 }
 
 export default async function WorksheetPage({ params, searchParams }: PageProps) {
-  const assignmentId = params?.assignmentId as string;
-  const studentId = searchParams?.student_id as string;
+  const { student_id: studentId } = (await searchParams) as { student_id?: string };
+  const { assignmentId } = (await params) as { assignmentId?: string };
 
   if (!assignmentId || !studentId) {
     return <div className="p-6 text-red-600">Missing assignment or student ID</div>;
