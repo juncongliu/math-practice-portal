@@ -12,6 +12,9 @@ export function createServerClient() {
   return _createClient(supabaseUrl, supabaseKey);
 }
 
+// Default client for API routes
+export const supabase = createClient();
+
 // ─── Types ────────────────────────────────────────────────────────────────────
 
 export interface Problem {
