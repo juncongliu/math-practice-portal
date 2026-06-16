@@ -12,8 +12,8 @@ export function createServerClient() {
   return _createClient(supabaseUrl, supabaseKey);
 }
 
-// Default client for API routes
-export const supabase = createClient();
+// Create client on demand (call in each request handler, not at module level)
+export { createClient, createServerClient };
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
