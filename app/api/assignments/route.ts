@@ -7,15 +7,21 @@ export async function GET(req: NextRequest) {
   const studentId = searchParams.get('student_id');
   const topicId = searchParams.get('topic_id');
 
-  const supabase = makeClient();
+  let supabase;
+  try {
+    supabase = makeClient();
+  } catch (e: any) {
+    return NextResponse.json({ error: 'Supabase init failed: ' + e.message }, { status: 500 });
+  }
+
   let query = supabase.from('assignments').select('*').order('created_at', { ascending: false });
 
   if (studentId) {
-    // Fetch assignments for a specific student (via submissions)
-    const { data: subs } = await supabase
+    const { data: subs, error: subsErr } = await supabase
       .from('submissions')
       .select('assignment_id')
       .eq('student_id', studentId);
+    if (subsErr) return NextResponse.json({ error: 'subs: ' + subsErr.message }, { status: 500 });
 
     const assignedIds = (subs ?? []).map((s: { assignment_id: string }) => s.assignment_id);
     if (assignedIds.length > 0) {
@@ -28,7 +34,7 @@ export async function GET(req: NextRequest) {
   }
 
   const { data, error } = await query;
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  if (error) return NextResponse.json({ error: 'query: ' + error.message, code: error.code, details: error.details, hint: error.hint }, { status: 500 });
   return NextResponse.json({ assignments: data });
 }
 
