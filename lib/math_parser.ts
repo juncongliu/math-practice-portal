@@ -160,15 +160,15 @@ function checkAlgebraicEquivalence(a: string, b: string): CompareResult | null {
 
 function checkTrigSpecialValue(studentRaw: string, keyRaw: string): CompareResult | null {
   const TRIG_TABLE: Record<string, Record<string, number>> = {
-    sin: { 0: 0, 30: 0.5, 45: Math.SQRT2 / 2, 60: Math.SQRT3 / 2, 90: 1, 180: 0, 270: -1 },
-    cos: { 0: 1, 30: Math.SQRT3 / 2, 45: Math.SQRT2 / 2, 60: 0.5, 90: 0, 180: -1, 270: 0 },
-    tan: { 0: 0, 30: 1 / Math.SQRT3, 45: 1, 60: Math.SQRT3, 90: Infinity, 180: 0 },
+    sin: { 0: 0, 30: 0.5, 45: Math.SQRT2 / 2, 60: Math.sqrt(3) / 2, 90: 1, 180: 0, 270: -1 },
+    cos: { 0: 1, 30: Math.sqrt(3) / 2, 45: Math.SQRT2 / 2, 60: 0.5, 90: 0, 180: -1, 270: 0 },
+    tan: { 0: 0, 30: 1 / Math.sqrt(3), 45: 1, 60: Math.sqrt(3), 90: Infinity, 180: 0 },
   };
 
   const TRIG_RAD: Record<string, Record<string, number>> = {
-    sin: { 0: 0, 'pi/6': 0.5, 'pi/4': Math.SQRT2 / 2, 'pi/3': Math.SQRT3 / 2, 'pi/2': 1, 'pi': 0, '3pi/2': -1 },
-    cos: { 0: 1, 'pi/6': Math.SQRT3 / 2, 'pi/4': Math.SQRT2 / 2, 'pi/3': 0.5, 'pi/2': 0, 'pi': -1, '3pi/2': 0 },
-    tan: { 0: 0, 'pi/6': 1 / Math.SQRT3, 'pi/4': 1, 'pi/3': Math.SQRT3, 'pi/2': Infinity, 'pi': 0 },
+    sin: { 0: 0, 'pi/6': 0.5, 'pi/4': Math.SQRT2 / 2, 'pi/3': Math.sqrt(3) / 2, 'pi/2': 1, 'pi': 0, '3pi/2': -1 },
+    cos: { 0: 1, 'pi/6': Math.sqrt(3) / 2, 'pi/4': Math.SQRT2 / 2, 'pi/3': 0.5, 'pi/2': 0, 'pi': -1, '3pi/2': 0 },
+    tan: { 0: 0, 'pi/6': 1 / Math.sqrt(3), 'pi/4': 1, 'pi/3': Math.sqrt(3), 'pi/2': Infinity, 'pi': 0 },
   };
 
   const match = studentRaw.match(/^(sin|cos|tan)\(([^)]+)\)/i);
